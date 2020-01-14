@@ -6,15 +6,16 @@
    var controls = document.querySelector('.controls');
    var startButton = document.getElementById("#btn-start");
    var questionBox = document.querySelector(".container-fluid");
-   var timeSpan = document.getElementById("#time-left");
-   var questionElement = document.getElementById('#title');
-   var choicesElement = document.getElementById("#choices");
+   var timeLeft = document.querySelector(".time-remaining");
+   var questionindex = 0;
+   var correct = 0;
+   var wrong = 0;
    
-   var shuffleQuestions, currenQuestionIndex;
+   var score = 0;
+  
+
+   
  
-
-   startButton.addEventListener('click', startQuiz);
-
 var questions = [
     {
       title: "Commonly used data types DO NOT include:",
@@ -29,8 +30,8 @@ var questions = [
 
     {
       title: "What is the HTML tag under which one can write the JavaScript code?",
-      choices: ["<javascript>", "<scripted>", "<script>", "<js>"],
-      answer: "<script>"
+      choices: ["javascript", "scripted", "script", "js"],
+      answer: "script"
     },
     {
       title: "Which of the following is the correct syntax to display a message in an alert box using JavaScript?",
@@ -40,42 +41,82 @@ var questions = [
 
   ];
   
+ 
 
  function startQuiz(){
     console.log("Quiz Started");
     controls.classList.add('hide');
     questionBox.classList.remove('hide');
-    nextQuestion();
-  
+    displayQuestion();
+   var timeRemaining = 60;
+
+    setInterval(function(){
+      timeRemaining--;
+      if (timeRemaining >= 0){
+        var timeSpan = document.createElement('span');
+        timeSpan.innerHTML=timeRemaining;
+        timeLeft.innerHTML="Time Remaining: " + timeRemaining;
+
+      }
+      if (timeRemaining === 0){
+        alert("Time's Up!");
+        clearInterval();
+      }
+      
+    },1000);
+
 };
   
-
-  function nextQuestion(){
-    showQuestion(shuffleQuestions[currenQuestionIndex]);
-
+  function displayQuestion(){
+   var title = document.createElement('span');
+    title.innerHTML = questions[questionindex].title;
+ 
+    //questionBox.innerHTML= "test";
+   document.querySelector('#question-box').appendChild(title);
+   for(var i = 0; i < questions[questionindex].choices.length; i++){
+     var choice = document.createElement('button');
+   choice.innerHTML= questions[questionindex].choices[i];
+   choice.classList += 'btn btn-warning btn-grid choice';
+   document.querySelector('#question-box').appendChild(choice);
+   }
+   //document.querySelector('.choice').addEventListener('click', selectAnswer);
+   var button = document.querySelectorAll('.choice');
+   for(var i = 0; i < button.length; i++){
+  
+    button[i].addEventListener('click', selectAnswer);
+   }
   }
 
-  function showQuestion(question){
-    questionElement.innerHTML = title.question;
-  }
 
   function selectAnswer(){
+    console.log("got clicked!", this.innerHTML);
+    console.log("answer", questions[questionindex].answer);
+    if(this.innerHTML === questions[questionindex].answer){
+        correct++;
+
+    } else wrong++;
+    console.log(correct);
+    console.log(wrong);
+
+    document.querySelector("#question-box").innerHTML = '';
+    questionindex++;
+    if(questionindex === questions.length){
+      alert("game over");
+    } else displayQuestion();
+    
 
   }
 
 
 
+  function viewHighScore(){
+
+  }
   
+  startButton.addEventListener('click', startQuiz);
 
+//startQuiz()
 
-
-
-
-
-
-
-
-startQuiz()
 
 // Play proceeds as follows:
 
