@@ -54,6 +54,10 @@
 
 }
 
+.btn-save{
+    margin: 100px;
+}
+
 .hide{
     display:none;
 }

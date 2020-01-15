@@ -13,8 +13,8 @@
 <title>Code Quiz</title>
 <header>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <h1 class="navbar-brand">High Score:
-            <span id="highscore">0</span>
+        <h1 class="navbar-brand high-score">High Score:
+            
          </h1>
         <h1 class= "navbar-brand time-remaining">Time Remaining:
             
@@ -44,7 +44,7 @@
 </div>
 <div class = "controls">
             <button type="button"  class="btn btn-warning btn-lg" id="btn-start" onclick="startQuiz()">Start Quiz </button>
-            <button type="button" class="btn btn-warning btn-viewhighscore btn-lg">View HighScores</button>
+            <button type="button" class="btn btn-warning btn-viewhighscore btn-lg" onclick="viewHighScore()">View HighScores</button>
 </div>
      <div class="answer-result"> </div>
 <!--1) Header w/ High Score and time remaining
@@ -56,9 +56,9 @@
 
  -->
 
+ 
+
 <script defer src = "questions.js"></script>
-
-
 </body>
 <footer class="footer">Copyright &copy;</footer>
 </html>
