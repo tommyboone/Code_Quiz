@@ -10,9 +10,7 @@
    var highScoreEl = document.querySelector(".high-score");
    var highScoreButton =document.getElementById ("#btn-viewhighscore");
    var questionindex = 0;
-   var correct = 0;
-   var wrong = 0;
-   var result = document.getElementById("#answer-result");
+  
  
 var questions = [
     {
@@ -94,17 +92,20 @@ var questions = [
 
   function selectAnswer(){
     if(this.innerHTML === questions[questionindex].answer){
-        correct++;
-        highScoreEl.innerHTML="High Score: " + correct;
+       alert("Correct!");
+        
         
       
-   } 
+   } else{
+     timeRemaining= timeRemaining - 15;
+     alert("Incorrect! 15 second penalty");
+   }
 
     document.querySelector("#question-box").innerHTML = '';
     questionindex++;
     if(questionindex === questions.length){
       alert("Thanks for playing!");
-      
+      clearInterval(setInterval);
       viewScore();
 
   
@@ -147,13 +148,14 @@ var questions = [
 
   function saveFunction(){
     document.querySelector("#question-box").innerHTML = "";
+    //
     var highScoreText= document.createElement('h3');
     highScoreText.classList += ('card-body card-text');
     highScoreText.innerHTML= "HIGHSCORES:";
     document.querySelector('#question-box').appendChild(highScoreText);
+    //
     var highScoreList = document.createElement('h4');
-    highScoreList.innerHTML= "1) "  + timeRemaining + "  " + initialTextArea.value;          
-
+    highScoreList.innerHTML= "1) "  + highScoreInput.innerHTML + "  " + initialTextArea.value;          
     highScoreList.classList += ('card-body card-text highscore-text');
     highScoreText.appendChild(highScoreList);
 
@@ -167,6 +169,13 @@ var questions = [
   startButton.addEventListener('click', startQuiz);
   highScoreButton.addEventListener('click', viewScore);
   saveButton.addEventLister('click',saveFunction);
+
+
+  // Create a div above the question-box
+  // Create two elements to append to the div. one for correct, one for incorrect
+  // set display to hide for each div
+  // If answer is correct, remove hide from correct element
+  // If answer is incorrect, remove hide from incorrect element
 
 //startQuiz()
 
