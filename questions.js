@@ -39,7 +39,7 @@ var questions = [
 
   ];
 
-  var highScoreScreen= [ "Your score is:  "
+  var viewScoreScreen= [ "Your score is:  "
 
   ];
   
@@ -96,16 +96,16 @@ var questions = [
     if(this.innerHTML === questions[questionindex].answer){
         correct++;
         highScoreEl.innerHTML="High Score: " + correct;
+        
       
    } 
 
     document.querySelector("#question-box").innerHTML = '';
     questionindex++;
     if(questionindex === questions.length){
-      clearInterval(timeRemaining);
       alert("Thanks for playing!");
       
-      viewHighScore();
+      viewScore();
 
   
 
@@ -116,38 +116,56 @@ var questions = [
 
 
 
-  function viewHighScore(){
+  function viewScore(){
+    //
+    
     console.log("Hey, look at your score!");
-    var highScoreTitle = document.createElement('span');
-    highScoreTitle.innerHTML =highScoreScreen[0];
-    highScoreTitle.classList += 'card-text';
+    var highScoreTitle = document.createElement('h3');
+    highScoreTitle.innerHTML =viewScoreScreen[0];
+    highScoreTitle.classList += 'card-body card-text';
     document.querySelector('#question-box').appendChild(highScoreTitle);
+    //
     var highScoreInput = document.createElement('span');
     highScoreInput.innerHTML = timeRemaining;
     highScoreTitle.appendChild(highScoreInput);
+    //
     var initialInput = document.createElement ('span');
     var initialTextArea= document.createElement('input');
     initialInput.innerHTML = "Your initials: " ;
-    initialInput.classList += ('card-text card-body');
+    initialInput.classList += ('card-text card-body initial-input');
     document.querySelector("#question-box").appendChild(initialInput);
     initialInput.appendChild(initialTextArea);
+    //
     var saveButton = document.createElement('button');
     saveButton.innerHTML = "Save Results";
     saveButton.classList += ('btn btn-warning btn-grid btn-save');
     document.querySelector('#question-box').appendChild(saveButton);
-    
 
-  }
+    saveButton.onclick = (saveFunction);
+
 
 
   function saveFunction(){
+    document.querySelector("#question-box").innerHTML = "";
+    var highScoreText= document.createElement('h3');
+    highScoreText.classList += ('card-body card-text');
+    highScoreText.innerHTML= "HIGHSCORES:";
+    document.querySelector('#question-box').appendChild(highScoreText);
+    var highScoreList = document.createElement('h4');
+    highScoreList.innerHTML= "1) "  + timeRemaining + "  " + initialTextArea.value;          
+
+    highScoreList.classList += ('card-body card-text highscore-text');
+    highScoreText.appendChild(highScoreList);
+
+
+
     
     
 
   }
-  
+}
   startButton.addEventListener('click', startQuiz);
-  highScoreButton.addEventListener('click', viewHighScore);
+  highScoreButton.addEventListener('click', viewScore);
   saveButton.addEventLister('click',saveFunction);
 
 //startQuiz()
