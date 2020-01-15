@@ -61,3 +61,13 @@
 .hide{
     display:none;
 }
+
+.initial-input{
+    margin: 25px;
+}
+
+.highscore-text{
+    background-color: #ffc107;
+    color:#fff;
+}
+
