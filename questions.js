@@ -7,14 +7,12 @@
    var startButton = document.getElementById("#btn-start");
    var questionBox = document.querySelector(".container-fluid");
    var timeLeft = document.querySelector(".time-remaining");
+   var highScoreEl = document.querySelector(".high-score");
+   var highScoreButton =document.getElementById ("#btn-viewhighscore");
    var questionindex = 0;
    var correct = 0;
    var wrong = 0;
-   
-   var score = 0;
-  
-
-   
+   var result = document.getElementById("#answer-result");
  
 var questions = [
     {
@@ -40,16 +38,19 @@ var questions = [
     }
 
   ];
+
+  var highScoreScreen= [ "Your score is:  "
+
+  ];
   
- 
+  var timeRemaining = 60;
 
  function startQuiz(){
     console.log("Quiz Started");
     controls.classList.add('hide');
     questionBox.classList.remove('hide');
     displayQuestion();
-   var timeRemaining = 60;
-
+   
     setInterval(function(){
       timeRemaining--;
       if (timeRemaining >= 0){
@@ -62,8 +63,11 @@ var questions = [
         alert("Time's Up!");
         clearInterval();
       }
+
       
     },1000);
+
+
 
 };
   
@@ -71,15 +75,15 @@ var questions = [
    var title = document.createElement('span');
     title.innerHTML = questions[questionindex].title;
  
-    //questionBox.innerHTML= "test";
    document.querySelector('#question-box').appendChild(title);
    for(var i = 0; i < questions[questionindex].choices.length; i++){
      var choice = document.createElement('button');
+   title.classList += 'card-text card-body';
    choice.innerHTML= questions[questionindex].choices[i];
    choice.classList += 'btn btn-warning btn-grid choice';
    document.querySelector('#question-box').appendChild(choice);
    }
-   //document.querySelector('.choice').addEventListener('click', selectAnswer);
+
    var button = document.querySelectorAll('.choice');
    for(var i = 0; i < button.length; i++){
   
@@ -89,19 +93,22 @@ var questions = [
 
 
   function selectAnswer(){
-    console.log("got clicked!", this.innerHTML);
-    console.log("answer", questions[questionindex].answer);
     if(this.innerHTML === questions[questionindex].answer){
         correct++;
-
-    } else wrong++;
-    console.log(correct);
-    console.log(wrong);
+        highScoreEl.innerHTML="High Score: " + correct;
+      
+   } 
 
     document.querySelector("#question-box").innerHTML = '';
     questionindex++;
     if(questionindex === questions.length){
-      alert("game over");
+      clearInterval(timeRemaining);
+      alert("Thanks for playing!");
+      
+      viewHighScore();
+
+  
+
     } else displayQuestion();
     
 
@@ -110,10 +117,38 @@ var questions = [
 
 
   function viewHighScore(){
+    console.log("Hey, look at your score!");
+    var highScoreTitle = document.createElement('span');
+    highScoreTitle.innerHTML =highScoreScreen[0];
+    highScoreTitle.classList += 'card-text';
+    document.querySelector('#question-box').appendChild(highScoreTitle);
+    var highScoreInput = document.createElement('span');
+    highScoreInput.innerHTML = timeRemaining;
+    highScoreTitle.appendChild(highScoreInput);
+    var initialInput = document.createElement ('span');
+    var initialTextArea= document.createElement('input');
+    initialInput.innerHTML = "Your initials: " ;
+    initialInput.classList += ('card-text card-body');
+    document.querySelector("#question-box").appendChild(initialInput);
+    initialInput.appendChild(initialTextArea);
+    var saveButton = document.createElement('button');
+    saveButton.innerHTML = "Save Results";
+    saveButton.classList += ('btn btn-warning btn-grid btn-save');
+    document.querySelector('#question-box').appendChild(saveButton);
+    
+
+  }
+
+
+  function saveFunction(){
+    
+    
 
   }
   
   startButton.addEventListener('click', startQuiz);
+  highScoreButton.addEventListener('click', viewHighScore);
+  saveButton.addEventLister('click',saveFunction);
 
 //startQuiz()
 
@@ -141,5 +176,4 @@ var questions = [
 // Incorrect answers result in time-penalty
 // when time is out, or quiz finished, user will see their final score and enter their initials
 // Store their score and Initials in localStorage.
-// Correct and Incorecct Pop-ups
-
+// Correct and Incorrect Pop-ups
