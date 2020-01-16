@@ -1,8 +1,9 @@
 #question-box{
     top:50%;
     bottom:50%;
-    height:300px;
+    height:340px;
     box-shadow: 0 0 10px 2px;
+    font-family: 'Noto Sans', sans-serif;
      
 }
 
@@ -20,16 +21,9 @@
     background-color: lightgray;
 }
 
-.container-fluid{
-    font-family: 'Noto Sans', sans-serif;
-    width: 100 vw;
-    
-}
 
 .btn-grid{
     display:grid;
-    grid-template-columns: repeat (2, auto);
-    gap: 10px;
     margin: 10px 20px;
 }
 
@@ -76,3 +70,5 @@
     padding-top:100px;
     
 }
+
+
