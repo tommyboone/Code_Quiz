@@ -10,6 +10,7 @@
    var highScoreEl = document.querySelector(".high-score");
    var highScoreButton =document.getElementById ("#btn-viewhighscore");
    var questionindex = 0;
+   var body = document.querySelector('body');
   
  
 var questions = [
@@ -64,9 +65,6 @@ var questions = [
 
       
     },1000);
-
-
-
 };
   
   function displayQuestion(){
@@ -93,12 +91,14 @@ var questions = [
   function selectAnswer(){
     if(this.innerHTML === questions[questionindex].answer){
        alert("Correct!");
+       console.log("right!");
         
         
       
    } else{
      timeRemaining= timeRemaining - 15;
      alert("Incorrect! 15 second penalty");
+     console.log("wrong!");
    }
 
     document.querySelector("#question-box").innerHTML = '';
@@ -158,6 +158,10 @@ var questions = [
     highScoreList.innerHTML= "1) "  + highScoreInput.innerHTML + "  " + initialTextArea.value;          
     highScoreList.classList += ('card-body card-text highscore-text');
     highScoreText.appendChild(highScoreList);
+    storeScore();
+    
+   
+    console.log("List of High Score!");
 
 
 
@@ -165,10 +169,31 @@ var questions = [
     
 
   }
-}
+
+  var scoreStorage = highScoreInput.innerHTML;
+
+  function storeScore(){
+    window.localStorage.setItem("highscore",JSON.stringify(scoreStorage));
+    window.localStorage.setItem("Initials", JSON.stringify(initialTextArea.value));
+
+    
+
+  }; 
+  
+  
+};
+
+
+ 
+
+
+
   startButton.addEventListener('click', startQuiz);
-  highScoreButton.addEventListener('click', viewScore);
+  highScoreButton.addEventListener('click', saveFunction);
   saveButton.addEventLister('click',saveFunction);
+
+
+
 
 
   // Create a div above the question-box
