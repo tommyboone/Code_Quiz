@@ -185,12 +185,12 @@ var questions = [
   saveButton.addEventLister('click',saveFunction);
 
 
-var displayScore= JSON.parse(localStorage.getItem("highscore"));
-document.getElementById("highscore").value = displayScore;
+// var displayScore= JSON.parse(localStorage.getItem("highscore"));
+// document.getElementById("highscore").value = displayScore;
 
-  window.addEventListener('load',function(){
-    highScoreEl.appendChild(displayScore)
-  });
+//   window.addEventListener('load',function(){
+//     highScoreEl.appendChild(displayScore)
+//   });
   
 
 
