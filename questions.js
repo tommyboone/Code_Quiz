@@ -12,6 +12,7 @@
    var questionindex = 0;
    var body = document.querySelector('body');
   
+   questionBox.classList.add('.container-fluid');
  
 var questions = [
     {
@@ -50,7 +51,7 @@ var questions = [
     questionBox.classList.remove('hide');
     displayQuestion();
    
-    setInterval(function(){
+    var setTime = setInterval(function(){
       timeRemaining--;
       if (timeRemaining >= 0){
         var timeSpan = document.createElement('span');
@@ -64,8 +65,10 @@ var questions = [
       }
 
       
+
+      
     },1000);
-};
+
   
   function displayQuestion(){
    var title = document.createElement('span');
@@ -105,17 +108,19 @@ var questions = [
     questionindex++;
     if(questionindex === questions.length){
       alert("Thanks for playing!");
-      clearInterval(setInterval);
       viewScore();
-
   
+    } 
 
-    } else displayQuestion();
+    if(questionindex === questions.length){
+      clearInterval(setTime);
+    }
+    else displayQuestion();
     
 
   }
 
-
+};
 
   function viewScore(){
     //
@@ -159,14 +164,7 @@ var questions = [
     highScoreList.classList += ('card-body card-text highscore-text');
     highScoreText.appendChild(highScoreList);
     storeScore();
-    
-   
     console.log("List of High Score!");
-
-
-
-    
-    
 
   }
 
@@ -175,57 +173,36 @@ var questions = [
   function storeScore(){
     window.localStorage.setItem("highscore",JSON.stringify(scoreStorage));
     window.localStorage.setItem("Initials", JSON.stringify(initialTextArea.value));
-
-    
+  
 
   }; 
   
   
 };
 
-
- 
-
-
-
   startButton.addEventListener('click', startQuiz);
   highScoreButton.addEventListener('click', saveFunction);
   saveButton.addEventLister('click',saveFunction);
 
 
+var displayScore= JSON.parse(localStorage.getItem("highscore"));
+document.getElementById("highscore").value = displayScore;
+
+  window.addEventListener('load',function(){
+    highScoreEl.appendChild(displayScore)
+  });
+  
 
 
-
-  // Create a div above the question-box
-  // Create two elements to append to the div. one for correct, one for incorrect
-  // set display to hide for each div
-  // If answer is correct, remove hide from correct element
-  // If answer is incorrect, remove hide from incorrect element
-
-//startQuiz()
-
-
-// Play proceeds as follows:
-
-
-// The user arrives at the landing page and is presented with a call-to-action to "Start Quiz." Also note the navigation option to "View Highscores" and the "Time" value set at 0.
-
-
-// Clicking the "Start Quiz" button presents the user with a series of questions. The timer is initialized with a value and immediately begins countdown.
-
-
-// Score is calculated by time remaining. Answering quickly and correctly results in a higher score. Answering incorrectly results in a time penalty (for example, 15 seconds are subtracted from time remaining).
-
-
-// When time runs out and/or all questions are answered, the user is presented with their final score and asked to enter their initials. Their final score and initials are then stored in localStorage.
+ 
 
 
 
 
-// start quiz call-to-action
-// after start quiz is clicked, a series of questions follows
-// when questions begin, a countdown timer starts
-// Incorrect answers result in time-penalty
-// when time is out, or quiz finished, user will see their final score and enter their initials
-// Store their score and Initials in localStorage.
-// Correct and Incorrect Pop-ups
+
+
+
+
+
+
+
