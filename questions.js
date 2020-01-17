@@ -8,9 +8,10 @@
    var questionBox = document.querySelector(".container-fluid");
    var timeLeft = document.querySelector(".time-remaining");
    var highScoreEl = document.querySelector(".high-score");
-   var highScoreButton =document.getElementById ("#btn-viewhighscore");
+   var highScoreButton =document.querySelector (".view-highscore");
    var questionindex = 0;
    var body = document.querySelector('body');
+   
   
    questionBox.classList.add('.container-fluid');
  
@@ -124,7 +125,7 @@ var questions = [
 
   function viewScore(){
     //
-    
+    document.querySelector("#question-box").innerHTML = "";
     console.log("Hey, look at your score!");
     var highScoreTitle = document.createElement('h3');
     highScoreTitle.innerHTML =viewScoreScreen[0];
@@ -181,8 +182,9 @@ var questions = [
 };
 
   startButton.addEventListener('click', startQuiz);
-  highScoreButton.addEventListener('click', saveFunction);
+  highScoreButton.addEventListener('click', viewScore);
   saveButton.addEventLister('click',saveFunction);
+  
 
 
 // var displayScore= JSON.parse(localStorage.getItem("highscore"));

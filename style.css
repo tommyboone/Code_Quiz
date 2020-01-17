@@ -7,6 +7,11 @@
      
 }
 
+#view-score{
+    font-family: 'Noto Sans', sans-serif;
+    font-weight:bold;
+    font-size:20px;
+}
 .time-remaining{
     float:right;
 }
